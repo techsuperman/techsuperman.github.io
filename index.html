@@ -3,112 +3,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大流量卡甄选</title>
+    <title>全国通用流量卡 - 科技尊享版</title>
     <style>
+        :root {
+            --primary-blue: #00a2ff;
+            --primary-gold: #ffb74d;
+            --dark-card-bg: rgba(10, 25, 50, 0.65); /* 暗色半透明基础背景 */
+            --glass-blur: blur(12px);
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
         body {
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
-            background: url('bg.png') center/cover no-repeat fixed;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 0;
+            /* 加载自定义科技感 bg.png */
+            background-image: url('bg.png');
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-size: 100% auto;
+            background-color: #030a16; /* 深邃暗黑底色，融合科技背景图 */
+            color: #ffffff;
+            padding-bottom: 50px;
         }
 
         .container {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 20px;
+        }
+
+        /* 头部主标题区 */
+        .header {
+            text-align: center;
+            padding: 30px 0 10px;
+        }
+
+        .badge-top {
+            display: inline-block;
+            background: rgba(0, 162, 255, 0.15);
+            padding: 5px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+            border: 1px solid rgba(0, 162, 255, 0.3);
+            text-shadow: 0 0 8px rgba(0, 162, 255, 0.5);
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            font-style: italic;
+            background: linear-gradient(to bottom, #ffffff 40%, #cceeff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            margin-bottom: 15px;
+        }
+
+        .sub-banner {
+            background: linear-gradient(90deg, rgba(0,162,255,0.2), rgba(0,234,255,0.4), rgba(0,162,255,0.2));
+            padding: 8px 24px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: bold;
+            color: #fff;
+            border: 1px solid rgba(0, 234, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.15);
+        }
+
+        /* 核心优势网格 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 30px 0;
+            background: var(--dark-card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 15px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 162, 255, 0.25);
+            box-shadow: inset 0 0 15px rgba(0, 162, 255, 0.1), 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .feature-item svg {
+            color: var(--primary-blue);
+            margin-bottom: 6px;
+            filter: drop-shadow(0 0 4px rgba(0, 162, 255, 0.6));
+        }
+
+        .feature-item h4 {
+            font-size: 13px;
+            font-weight: bold;
+            color: #e0f2fe;
+        }
+
+        .feature-item p {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        /* 提示语 */
+        .action-tip {
+            text-align: center;
+            color: #f1f5f9;
+            font-weight: 500;
+            font-size: 16px;
+            margin: 25px 0 15px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255,255,255,0.3);
+        }
+
+        /* 套餐卡片容器 */
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 套餐卡片 */
+        .package-card {
+            background: var(--dark-card-bg); 
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(0, 162, 255, 0.1);
+            border: 1px solid rgba(0, 162, 255, 0.3);
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
+            transition: all 0.2s ease;
         }
 
-        .avatar {
-            width: 120px;
-            height: 120px;
+        .package-card:hover {
+            border-color: rgba(0, 234, 255, 0.5);
+        }
+
+        /* 科技风格角标与标签 */
+        .badge-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 6px 20px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #fff;
+            border-bottom-right-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .hot-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff5722, #ff2a2a);
+            color: #fff;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 0 8px rgba(255,87,34,0.5);
+            animation: pulse 1.5s infinite;
+        }
+
+        /* 卡片内SIM卡仿真视觉 */
+        .sim-visual {
+            width: 100px;
+            height: 140px;
+            background: linear-gradient(135deg, rgba(15, 32, 67, 0.8) 0%, rgba(7, 16, 36, 0.9) 100%);
+            border-radius: 8px;
+            margin-top: 15px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            border: 1px solid rgba(0, 162, 255, 0.2);
+        }
+        .sim-chip {
+            width: 32px;
+            height: 28px;
+            background: linear-gradient(135deg, #ffd700, #b7950b);
+            border-radius: 4px;
+            position: absolute;
+            top: 35px;
+            left: 34px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 8px rgba(212,172,13,0.4);
+        }
+        .sim-text {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+            font-weight: 900;
+            color: var(--primary-blue);
+            font-size: 20px;
+            text-shadow: 0 0 10px rgba(0, 162, 255, 0.6);
+        }
+
+        /* 流量数字 */
+        .data-amount {
+            font-size: 46px;
+            font-weight: 900;
+            margin-top: 15px;
+            line-height: 1;
+            color: var(--primary-gold);
+            text-shadow: 0 0 12px rgba(255, 183, 77, 0.4);
+        }
+        .data-unit {
+            font-size: 24px;
+            margin-left: 2px;
+        }
+        .data-desc {
+            font-size: 15px;
+            color: #cbd5e1;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .sub-benefit {
+            background: rgba(0, 162, 255, 0.1);
+            color: #00eaff;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            margin-top: 14px;
+            font-weight: bold;
+            border: 1px solid rgba(0, 234, 255, 0.2);
+        }
+
+        /* 关键修改：将原本的 button 样式重构为 a 标签超链接样式 */
+        .order-btn-link {
+            display: block;          /* 让超链接撑满整行，便于点击 */
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;      /* 硬朗硬核科技感 */
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;   /* 移除超链接默认下划线 */
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .order-btn-link:active {
+            transform: scale(0.96);  /* 点击时轻微按压缩小动效 */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        /* 三种套餐超链接按钮的专属科技渐变色 */
+        /* 19元套餐（标准蓝） */
+        .card-19 .badge-header { background: rgba(0, 110, 255, 0.8); border: 1px solid rgba(0, 110, 255, 0.4); }
+        .card-19 .order-btn-link { background: linear-gradient(90deg, #0052d4, #4364f7); }
+        .card-19 .order-btn-link:hover { background: linear-gradient(90deg, #0066ff, #5a7fff); }
+        
+        /* 29元套餐（幻影青） */
+        .card-29 .badge-header { background: rgba(0, 180, 160, 0.8); border: 1px solid rgba(0, 180, 160, 0.4); }
+        .card-29 .order-btn-link { background: linear-gradient(90deg, #00b492, #00ffd0); color: #030a16; }
+        .card-29 .order-btn-link:hover { background: linear-gradient(90deg, #00d1aa, #33ffdb); }
+        
+        /* 39元套餐（至尊紫） */
+        .card-39 .badge-header { background: rgba(142, 68, 173, 0.8); border: 1px solid rgba(142, 68, 173, 0.4); }
+        .card-39 .order-btn-link { background: linear-gradient(90deg, #8e44ad, #c39bd3); }
+        .card-39 .order-btn-link:hover { background: linear-gradient(90deg, #a55dd1, #d7bde2); }
+
+        /* 底部官方保障服务 */
+        .footer-trust {
+            background: var(--dark-card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(0, 162, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px 15px;
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .trust-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 162, 255, 0.15);
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
-            margin-bottom: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.5);
+            color: var(--primary-blue);
+            font-weight: bold;
+            border: 1px solid rgba(0, 162, 255, 0.3);
+        }
+        .trust-info h5 {
+            font-size: 14px;
+            color: #f1f5f9;
+        }
+        .trust-info p {
+            font-size: 11px;
+            color: #94a3b8;
         }
 
-        h1 {
-            font-size: 36px;
-            margin-bottom: 12px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .bio {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 40px;
+        .tips-text {
             text-align: center;
-            max-width: 500px;
-            line-height: 1.6;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 20px;
         }
 
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            width: 100%;
-            max-width: 400px;
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.9; }
         }
 
-        .link-item {
-            display: block;
-            border-radius: 12px;
-            overflow: hidden;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .link-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .link-item img {
-            width: 100%;
-            height: auto;
-            display: block;
+        /* 移动端并排排版优化 */
+        @media(min-width: 500px) {
+            .cards-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .package-card {
+                flex: 1;
+                padding: 20px 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
 
-    <div class="container">
-        <h1>大流量卡甄选</h1>
+<div class="container">
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="badge-top">⚡ 5G双频全网通 · 极速网络不限速</div>
+        <h1 class="main-title">全国通用流量卡</h1>
+        <div class="sub-banner">超大流量 · 超低月租 · 官方可查</div>
+    </div>
 
-        <div class="links">
-            <!-- 添加更多链接：复制下面的 a 标签，修改 href 和图片 src -->
-            <a href="https://haokawx.lot-ml.com/ProductEn/Index/780e6d6074214b36" class="link-item" target="_blank" rel="noopener">
-                <img src="liuliang.png" alt="流量卡">
-            </a>
+    <!-- 优势特征模块 -->
+    <div class="features-grid">
+        <div class="feature-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <h4>5G高速</h4>
+            <p>极速网络体验</p>
+        </div>
+        <div class="feature-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <h4>全国通用</h4>
+            <p>全国流量不限区</p>
+        </div>
+        <div class="feature-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h4>官方可查</h4>
+            <p>运营商官方认证</p>
+        </div>
+        <div class="feature-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <h4>超低月租</h4>
+            <p>超高性价比套餐</p>
         </div>
     </div>
+
+    <div class="action-tip">请点击下方卡片选择套餐</div>
+
+    <!-- 套餐卡片列表 -->
+    <div class="cards-container">
+        
+        <!-- 19元套餐 -->
+        <div class="package-card card-19">
+            <div class="badge-header">19元基础套餐</div>
+            <div class="sim-visual">
+                <div class="sim-chip"></div>
+                <div class="sim-text">5G</div>
+            </div>
+            <div class="data-amount">100<span class="data-unit">G</span></div>
+            <div class="data-desc">全国通用流量</div>
+            <div class="sub-benefit">⚡ 通话优惠 · 接听免费</div>
+            <!-- 关键修改：替换为带有申请地址的超链接 -->
+            <a href="https://haokawx.lot-ml.com/ProductEn/Index/780e6d6074214b36" class="order-btn-link" target="_blank">立即办理</a>
+        </div>
+
+        <!-- 29元套餐 -->
+        <div class="package-card card-29">
+            <div class="badge-header">29元畅享套餐</div>
+            <div class="hot-tag">热门推荐</div>
+            <div class="sim-visual">
+                <div class="sim-chip"></div>
+                <div class="sim-text">5G</div>
+            </div>
+            <div class="data-amount">200<span class="data-unit">G</span></div>
+            <div class="data-desc">全国通用流量</div>
+            <div class="sub-benefit">⚡ 赠100分钟全国通话</div>
+            <!-- 关键修改：替换为带有申请地址的超链接 -->
+            <a href="https://haokawx.lot-ml.com/ProductEn/Index/780e6d6074214b36" class="order-btn-link" target="_blank">立即办理</a>
+        </div>
+
+        <!-- 39元套餐 -->
+        <div class="package-card card-39">
+            <div class="badge-header">39元尊享套餐</div>
+            <div class="sim-visual">
+                <div class="sim-chip"></div>
+                <div class="sim-text">5G</div>
+            </div>
+            <div class="data-amount">350<span class="data-unit">G</span></div>
+            <div class="data-desc">全国通用流量</div>
+            <div class="sub-benefit">⚡ 赠200分钟全国通话</div>
+            <!-- 关键修改：替换为带有申请地址的超链接 -->
+            <a href="https://haokawx.lot-ml.com/ProductEn/Index/780e6d6074214b36" class="order-btn-link" target="_blank">立即办理</a>
+        </div>
+
+    </div>
+
+    <!-- 底部信任背书 -->
+    <div class="footer-trust">
+        <div class="trust-item">
+            <div class="trust-icon">✓</div>
+            <div class="trust-info">
+                <h5>正规号卡</h5>
+                <p>运营商官方认证办理</p>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">✓</div>
+            <div class="trust-info">
+                <h5>套餐可查</h5>
+                <p>官方营业厅APP随查</p>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">✓</div>
+            <div class="trust-info">
+                <h5>包邮到家</h5>
+                <p>极速物流免费寄送</p>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">✓</div>
+            <div class="trust-info">
+                <h5>售后无忧</h5>
+                <p>全天候专业在线客服</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="tips-text">温馨提示：具体套餐内容以运营商实际官方政策为准</p>
+</div>
+
 </body>
 </html>
